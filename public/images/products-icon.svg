@@ -1,7 +1,14 @@
 <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-  <rect x="8" y="12" width="32" height="24" rx="2" fill="currentColor"/>
-  <rect x="12" y="16" width="8" height="16" fill="currentColor" opacity="0.3"/>
-  <rect x="22" y="16" width="8" height="16" fill="currentColor" opacity="0.3"/>
-  <rect x="32" y="16" width="8" height="16" fill="currentColor" opacity="0.3"/>
-  <rect x="6" y="8" width="36" height="6" rx="2" fill="currentColor"/>
+  <defs>
+    <linearGradient id="products-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#14B8A6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0D9488;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="24" cy="24" r="22" fill="url(#products-gradient)" opacity="0.1"/>
+  <path d="M24 10 L40 18 L40 34 L24 42 L8 34 L8 18 Z" fill="url(#products-gradient)"/>
+  <path d="M24 10 L24 26 L40 18" stroke="white" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M24 26 L8 18" stroke="white" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M8 18 L24 10 L40 18" stroke="white" stroke-width="2" fill="none" opacity="0.5"/>
+  <rect x="20" y="24" width="8" height="8" rx="2" fill="white" opacity="0.9"/>
 </svg>
