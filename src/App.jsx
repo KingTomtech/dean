@@ -5,7 +5,12 @@ import Home from './pages/Home'
 import Products from './pages/Products'
 import Cart from './pages/Cart'
 import Profile from './pages/Profile'
+import Login from './pages/Auth/Login'
+import Signup from './pages/Auth/Signup'
+import ForgotPassword from './pages/Auth/ForgotPassword'
+import ProtectedRoute from './components/ProtectedRoute'
 import { CartProvider } from './context/CartContext'
+import { AuthProvider } from './context/AuthContext'
 
 // Placeholder pages (to be implemented)
 const Manufacturing = () => (
@@ -242,59 +247,73 @@ const AdminDashboard = () => (
 
 function App() {
   return (
-    <CartProvider>
-      <div className="min-h-screen bg-gray-50">
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/manufacturing" element={<Manufacturing />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
-        
-        {/* Footer */}
-        <footer className="bg-rapid-dark text-white py-8 mt-12">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div>
-                <h3 className="text-xl font-bold mb-4">Rapid Stores</h3>
-                <p className="text-gray-400 text-sm">
-                  Your trusted partner for quality mattresses, furniture, and household essentials in Mansa, Zambia.
-                </p>
+    <AuthProvider>
+      <CartProvider>
+        <div className="min-h-screen bg-gray-50">
+          <Header />
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/manufacturing" element={<Manufacturing />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin-dashboard" element={<AdminDashboard />} />
+              <Route 
+                path="/profile" 
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </main>
+          
+          {/* Footer */}
+          <footer className="bg-rapid-dark text-white py-8 mt-12">
+            <div className="container mx-auto px-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                  <h3 className="text-xl font-bold mb-4">Rapid Stores</h3>
+                  <p className="text-gray-400 text-sm">
+                    Your trusted partner for quality mattresses, furniture, and household essentials in Mansa, Zambia.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-4">Quick Links</h4>
+                  <ul className="space-y-2 text-sm text-gray-400">
+                    <li><a href="/" className="hover:text-white">Home</a></li>
+                    <li><a href="/products" className="hover:text-white">Products</a></li>
+                    <li><a href="/manufacturing" className="hover:text-white">Manufacturing</a></li>
+                    <li><a href="/contact" className="hover:text-white">Contact</a></li>
+                    <li><a href="/login" className="hover:text-white">Login</a></li>
+                    <li><a href="/signup" className="hover:text-white">Sign Up</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-4">Payment Methods</h4>
+                  <div className="flex flex-wrap gap-2">
+                    <img src="/images/mtn-logo.svg" alt="MTN MoMo" className="h-8 w-auto" />
+                    <img src="/images/airtel-logo.svg" alt="Airtel Money" className="h-8 w-auto" />
+                    <img src="/images/zamtel-logo.png" alt="Zamtel" className="h-8 w-auto" />
+                                   </div>
+                </div>
               </div>
-              <div>
-                <h4 className="font-semibold mb-4">Quick Links</h4>
-                <ul className="space-y-2 text-sm text-gray-400">
-                  <li><a href="/" className="hover:text-white">Home</a></li>
-                  <li><a href="/products" className="hover:text-white">Products</a></li>
-                  <li><a href="/manufacturing" className="hover:text-white">Manufacturing</a></li>
-                  <li><a href="/contact" className="hover:text-white">Contact</a></li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold mb-4">Payment Methods</h4>
-                <div className="flex flex-wrap gap-2">
-                  <img src="/images/mtn-logo.svg" alt="MTN MoMo" className="h-8 w-auto" />
-                  <img src="/images/airtel-logo.svg" alt="Airtel Money" className="h-8 w-auto" />
-                  <img src="/images/zamtel-logo.png" alt="Zamtel" className="h-8 w-auto" />
-                                 </div>
+              <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2026 Rapid Stores and General Dealers Ltd. All rights reserved.</p>
               </div>
             </div>
-            <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
-              <p>&copy; 2026 Rapid Stores and General Dealers Ltd. All rights reserved.</p>
-            </div>
-          </div>
-        </footer>
-      </div>
-    </CartProvider>
+          </footer>
+        </div>
+      </CartProvider>
+    </AuthProvider>
   )
 }
 

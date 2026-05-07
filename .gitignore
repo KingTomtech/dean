@@ -1,36 +1,59 @@
+```
 # Dependencies
 node_modules/
-.pnp
-.pnp.js
 
-# Build output
-dist/
-build/
-
-# Environment files
+# Environment variables
 .env
 .env.local
-.env.*.local
+.env.*
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
 
 # Logs
-logs/
 *.log
-npm-debug.log*
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea/
+# Build artifacts
+dist/
+build/
+*.js.map
+
+# Python cache (if any Python files exist in project)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Coverage reports
+coverage/
+htmlcov/
+.coverage
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS files
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+
+# Package managers
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Testing
+.jest/
+.nyc_output/
 coverage/
 
-# Misc
-.cache/
-.temp/
+# Bundler
+.sass-cache/
+connect.lock
+coverage/
+lib-cov/
+*.lcov
+```
