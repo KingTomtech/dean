@@ -4,6 +4,7 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import Products from './pages/Products'
 import Cart from './pages/Cart'
+import Profile from './pages/Profile'
 import { CartProvider } from './context/CartContext'
 
 // Placeholder pages (to be implemented)
@@ -124,7 +125,7 @@ const Checkout = () => (
           For now, please use WhatsApp to complete your order. Full checkout functionality coming soon.
         </p>
         <a
-          href="https://wa.me/260970000000?text=Hello,%20I%20would%20like%20to%20complete%20my%20checkout"
+          href="https://wa.me/260776885851?text=Hello,%20I%20would%20like%20to%20complete%20my%20checkout"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors inline-block"
@@ -198,6 +199,47 @@ const Contact = () => (
   </div>
 )
 
+const AdminDashboard = () => (
+  <div className="min-h-screen py-12">
+    <div className="container mx-auto px-4">
+      <h1 className="text-3xl font-bold text-gray-800 mb-4">Admin Dashboard</h1>
+      <p className="text-gray-600 mb-6">Manage products, orders, and inventory.</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="card p-6 cursor-pointer hover:shadow-lg transition-shadow">
+          <img src="/images/box-icon.svg" alt="Products" className="w-12 h-12 mx-auto mb-3" />
+          <h3 className="font-semibold text-lg">Products</h3>
+          <p className="text-sm text-gray-600">Manage catalog</p>
+        </div>
+        <div className="card p-6 cursor-pointer hover:shadow-lg transition-shadow">
+          <img src="/images/cart-icon.svg" alt="Orders" className="w-12 h-12 mx-auto mb-3" />
+          <h3 className="font-semibold text-lg">Orders</h3>
+          <p className="text-sm text-gray-600">View and manage orders</p>
+        </div>
+        <div className="card p-6 cursor-pointer hover:shadow-lg transition-shadow">
+          <img src="/images/analytics-icon.svg" alt="Analytics" className="w-12 h-12 mx-auto mb-3" />
+          <h3 className="font-semibold text-lg">Analytics</h3>
+          <p className="text-sm text-gray-600">Sales and reports</p>
+        </div>
+        <div className="card p-6 cursor-pointer hover:shadow-lg transition-shadow">
+          <img src="/images/customers-icon.svg" alt="Customers" className="w-12 h-12 mx-auto mb-3" />
+          <h3 className="font-semibold text-lg">Customers</h3>
+          <p className="text-sm text-gray-600">Customer management</p>
+        </div>
+        <div className="card p-6 cursor-pointer hover:shadow-lg transition-shadow">
+          <img src="/images/factory-icon.svg" alt="Production" className="w-12 h-12 mx-auto mb-3" />
+          <h3 className="font-semibold text-lg">Production</h3>
+          <p className="text-sm text-gray-600">Track manufacturing</p>
+        </div>
+        <div className="card p-6 cursor-pointer hover:shadow-lg transition-shadow">
+          <img src="/images/vouchers-icon.svg" alt="Vouchers" className="w-12 h-12 mx-auto mb-3" />
+          <h3 className="font-semibold text-lg">Vouchers</h3>
+          <p className="text-sm text-gray-600">Discount codes</p>
+        </div>
+      </div>
+    </div>
+  </div>
+)
+
 function App() {
   return (
     <CartProvider>
@@ -212,6 +254,8 @@ function App() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/manufacturing" element={<Manufacturing />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
@@ -240,9 +284,8 @@ function App() {
                 <div className="flex flex-wrap gap-2">
                   <img src="/images/mtn-logo.svg" alt="MTN MoMo" className="h-8 w-auto" />
                   <img src="/images/airtel-logo.svg" alt="Airtel Money" className="h-8 w-auto" />
-                  <img src="/images/zamtel-logo.svg" alt="Zamtel" className="h-8 w-auto" />
-                  <img src="/images/lenco-logo.svg" alt="Lenco" className="h-8 w-auto" />
-                </div>
+                  <img src="/images/zamtel-logo.png" alt="Zamtel" className="h-8 w-auto" />
+                                 </div>
               </div>
             </div>
             <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">

@@ -1,30 +1,91 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ProductCard from '../components/ProductCard'
+import { db } from '../services/supabase'
 
-// Sample products (will be replaced with API data)
-const allProducts = [
-  { id: 1, name: 'Single Foam Mattress', price: 450, category: 'Mattresses', description: 'High-quality foam mattress for single bed.', stock: 25 },
-  { id: 2, name: 'Double Spring Mattress', price: 1200, category: 'Mattresses', description: 'Premium spring mattress with orthopedic support.', stock: 15 },
-  { id: 3, name: 'Divan Base - Queen', price: 850, category: 'Furniture', description: 'Sturdy divan base with storage compartments.', stock: 8 },
-  { id: 4, name: 'Household Essentials Pack', price: 250, category: 'Groceries', description: 'Complete pack of daily household essentials.', stock: 50 },
-  { id: 5, name: 'Custom Foam Sheet', price: 180, category: 'Foam Products', description: 'Custom-cut foam sheet in various thicknesses.', stock: 100 },
-  { id: 6, name: 'King Size Mattress', price: 1800, category: 'Mattresses', description: 'Luxury king size mattress with premium comfort.', stock: 5 },
-  { id: 7, name: 'Office Chair', price: 650, category: 'Furniture', description: 'Ergonomic office chair with lumbar support.', stock: 12 },
-  { id: 8, name: 'Foam Pillow', price: 80, category: 'Foam Products', description: 'Comfortable foam pillow for better sleep.', stock: 40 }
-]
-
-const categories = ['All', 'Mattresses', 'Furniture', 'Groceries', 'Foam Products']
+const defaultCategories = ['All', 'Mattresses', 'Furniture', 'Groceries', 'Foam Products']
 
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
+  const [products, setProducts] = useState([])
+  const [categories, setCategories] = useState(defaultCategories)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
-  const filteredProducts = allProducts.filter(product => {
-    const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory
+  useEffect(() => {
+    loadCategories()
+    loadProducts()
+  }, [])
+
+  useEffect(() => {
+    if (selectedCategory === 'All') {
+      loadProducts()
+    } else {
+      loadProductsByCategory(selectedCategory)
+    }
+  }, [selectedCategory])
+
+  const loadCategories = async () => {
+    try {
+      const categoryData = await db.categories.getAll()
+      if (categoryData?.length) {
+        setCategories(['All', ...categoryData.map((category) => category.name)])
+      }
+    } catch (err) {
+      console.error('Failed to load categories:', err)
+    }
+  }
+
+  const loadProducts = async () => {
+    setLoading(true)
+    setError(null)
+
+    try {
+      const data = await db.products.getAll()
+      setProducts(data)
+    } catch (err) {
+      console.error('Failed to load products:', err)
+      setError('Unable to load products right now. Please try again later.')
+      setProducts([])
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const loadProductsByCategory = async (category) => {
+    setLoading(true)
+    setError(null)
+
+    try {
+      const data = await db.products.getByCategory(category)
+      setProducts(data)
+    } catch (err) {
+      console.error(`Failed to load products for category ${category}:`, err)
+      setError('Unable to load products right now. Please try again later.')
+      setProducts([])
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         product.description.toLowerCase().includes(searchQuery.toLowerCase())
-    return matchesCategory && matchesSearch
+      (product.description ?? '').toLowerCase().includes(searchQuery.toLowerCase())
+    return matchesSearch
   })
+
+  if (loading) {
+    return (
+      <div className="min-h-screen py-8">
+        <div className="container mx-auto px-4">
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-rapid-primary mx-auto"></div>
+            <p className="text-gray-600 mt-4">Loading products...</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen py-8">
@@ -48,7 +109,7 @@ const Products = () => {
 
           {/* Category Filter */}
           <div className="flex flex-wrap gap-2">
-            {categories.map(category => (
+            {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
@@ -66,13 +127,19 @@ const Products = () => {
 
         {/* Results Count */}
         <p className="text-sm text-gray-600 mb-4">
-          Showing {filteredProducts.length} of {allProducts.length} products
+          Showing {filteredProducts.length} of {products.length} products
         </p>
+
+        {error && (
+          <div className="mb-6 rounded-lg bg-red-50 border border-red-200 p-4 text-red-700">
+            {error}
+          </div>
+        )}
 
         {/* Product Grid */}
         {filteredProducts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredProducts.map(product => (
+            {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

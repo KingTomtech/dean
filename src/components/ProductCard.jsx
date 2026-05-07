@@ -50,7 +50,7 @@ const ProductCard = ({ product }) => {
       {/* Product Info */}
       <div className="p-4">
         <span className="text-xs text-rapid-primary font-semibold uppercase tracking-wide">
-          {product.category}
+          {product.category ?? 'Uncategorized'}
         </span>
         
         <h3 className="text-lg font-bold text-gray-800 mt-1 mb-2 line-clamp-2">
@@ -64,7 +64,7 @@ const ProductCard = ({ product }) => {
         {/* Price */}
         <div className="flex items-center justify-between mb-3">
           <span className="text-xl font-bold text-rapid-primary">
-            ZMW {product.price.toFixed(2)}
+            ZMW {(product.price ?? product.price_zmw ?? 0).toFixed(2)}
           </span>
           {product.originalPrice && (
             <span className="text-sm text-gray-400 line-through">

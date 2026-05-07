@@ -7,50 +7,86 @@ export const supabase = createClient(
   config.supabase.key
 )
 
-// Database helper functions
+const normalizeProduct = (product) => ({
+  ...product,
+  price: Number(product.price_zmw ?? product.price ?? 0),
+  stock: product.stock_qty ?? product.stock ?? 0,
+  category: product.categories?.name ?? product.category ?? '',
+  image: product.image_url ?? product.image ?? null
+})
+
 export const db = {
+  // Categories
+  categories: {
+    getAll: async () => {
+      const { data, error } = await supabase
+        .from('categories')
+        .select('*')
+        .order('name')
+      if (error) throw error
+      return data
+    }
+  },
+
   // Products
   products: {
     getAll: async () => {
       const { data, error } = await supabase
         .from('products')
-        .select('*')
+        .select('*, categories(name)')
         .order('created_at', { ascending: false })
       if (error) throw error
-      return data
+      return data.map(normalizeProduct)
     },
-    
+
     getById: async (id) => {
       const { data, error } = await supabase
         .from('products')
-        .select('*')
+        .select('*, categories(name)')
         .eq('id', id)
         .single()
       if (error) throw error
-      return data
+      return normalizeProduct(data)
     },
-    
+
     getByCategory: async (category) => {
+      if (!category || category === 'All') {
+        return db.products.getAll()
+      }
+
+      const { data: categoryRow, error: categoryError } = await supabase
+        .from('categories')
+        .select('id')
+        .eq('name', category)
+        .maybeSingle()
+      if (categoryError) throw categoryError
+      if (!categoryRow) return []
+
       const { data, error } = await supabase
         .from('products')
-        .select('*')
-        .eq('category', category)
+        .select('*, categories(name)')
+        .eq('category_id', categoryRow.id)
         .order('name')
       if (error) throw error
-      return data
+      return data.map(normalizeProduct)
     },
-    
+
     search: async (query) => {
+      const sanitized = query?.trim() ?? ''
+      if (!sanitized) return []
+
       const { data, error } = await supabase
         .from('products')
-        .select('*')
-        .ilike('name', `%${query}%`)
-        .or(`description.ilike.%${query}%`)
+        .select('*, categories(name)')
+        .or(
+          `name.ilike.%${sanitized}%,description.ilike.%${sanitized}%`
+        )
+        .order('name')
       if (error) throw error
-      return data
+      return data.map(normalizeProduct)
     }
   },
-  
+
   // Orders
   orders: {
     create: async (orderData) => {
@@ -62,7 +98,7 @@ export const db = {
       if (error) throw error
       return data
     },
-    
+
     getByUser: async (userId) => {
       const { data, error } = await supabase
         .from('orders')
@@ -72,7 +108,7 @@ export const db = {
       if (error) throw error
       return data
     },
-    
+
     updateStatus: async (orderId, status) => {
       const { data, error } = await supabase
         .from('orders')
@@ -84,7 +120,7 @@ export const db = {
       return data
     }
   },
-  
+
   // Users
   users: {
     getByPhone: async (phone) => {
@@ -96,7 +132,7 @@ export const db = {
       if (error && error.code !== 'PGRST116') throw error
       return data
     },
-    
+
     create: async (userData) => {
       const { data, error } = await supabase
         .from('users')
@@ -107,7 +143,7 @@ export const db = {
       return data
     }
   },
-  
+
   // Vouchers
   vouchers: {
     validate: async (code) => {
@@ -115,38 +151,38 @@ export const db = {
         .from('vouchers')
         .select('*')
         .eq('code', code)
-        .eq('active', true)
-        .gt('expires_at', new Date().toISOString())
+        .eq('is_active', true)
+        .gte('expires_at', new Date().toISOString())
         .single()
       if (error && error.code !== 'PGRST116') throw error
       return data
     }
   },
-  
+
   // Manufacturing
-  production: {
+  manufacturing: {
     getAll: async () => {
       const { data, error } = await supabase
-        .from('production_orders')
+        .from('manufacturing_orders')
         .select('*')
         .order('created_at', { ascending: false })
       if (error) throw error
       return data
     },
-    
-    create: async (productionData) => {
+
+    create: async (manufacturingData) => {
       const { data, error } = await supabase
-        .from('production_orders')
-        .insert([productionData])
+        .from('manufacturing_orders')
+        .insert([manufacturingData])
         .select()
         .single()
       if (error) throw error
       return data
     },
-    
+
     updateStatus: async (id, status) => {
       const { data, error } = await supabase
-        .from('production_orders')
+        .from('manufacturing_orders')
         .update({ status })
         .eq('id', id)
         .select()
@@ -156,5 +192,3 @@ export const db = {
     }
   }
 }
-
-export default supabase

@@ -108,7 +108,7 @@ const Home = () => {
               <p className="text-sm text-gray-600">Collect from our store</p>
             </div>
             <div className="text-center p-4">
-              <img src="/images/credit-card-icon.svg" alt="Payment" className="w-12 h-12 mx-auto mb-2 text-gray-600" />
+              <img src="/images/momo.png" alt="Payment" className="w-12 h-12 mx-auto mb-2 text-gray-600" />
               <h3 className="font-semibold text-gray-800">Mobile Money</h3>
               <p className="text-sm text-gray-600">MTN, Airtel, Zamtel</p>
             </div>
@@ -202,7 +202,7 @@ const Home = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
-              href="https://wa.me/260970000000"
+              href="https://wa.me/260776885851"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white text-rapid-primary px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors flex items-center"

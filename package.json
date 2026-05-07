@@ -1,6 +1,7 @@
 {
   "name": "rapid-stores-platform",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "directories": {
     "doc": "docs"
@@ -8,7 +9,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:cloudflare": "vite build",
+    "deploy": "npm run build && npx wrangler deploy",
+    "deploy:worker": "npm run build && npx wrangler deploy",
     "preview": "vite preview",
+    "preview:cloudflare": "npx wrangler dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,6 +21,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@cloudflare/kv-asset-handler": "^0.5.0",
     "@supabase/supabase-js": "^2.105.3",
     "axios": "^1.16.0",
     "react": "^19.2.5",
@@ -23,11 +29,13 @@
     "react-router-dom": "^7.15.0"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.36.0",
     "@vitejs/plugin-react": "^6.0.1",
     "autoprefixer": "^10.5.0",
     "babel-plugin-react-compiler": "^1.0.0",
     "postcss": "^8.5.14",
     "tailwindcss": "^3.4.19",
-    "vite": "^8.0.10"
+    "vite": "^8.0.10",
+    "wrangler": "^4.88.0"
   }
 }

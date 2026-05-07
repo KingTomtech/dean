@@ -1,0 +1,9 @@
+name = "rapid-stores-platform"
+compatibility_date = "2026-05-06"
+account_id = "7c5b0a7a15b2676ca96c4c773ffe844e"
+workers_dev = true
+main = "workers-site/index.js"
+site = { bucket = "./dist" }
+
+[build]
+command = "npm run build"
