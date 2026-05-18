@@ -44,38 +44,7 @@ const Header = () => {
               )}
             </Link>
             
-            {/* User Authentication */}
-            {isAuthenticated ? (
-              <div className="flex items-center space-x-3">
-                <Link 
-                  to="/profile" 
-                  className="text-sm bg-white text-rapid-primary px-3 py-1 rounded-lg font-medium hover:bg-green-50 transition-colors flex items-center"
-                >
-                  <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                  </svg>
-                  {user?.user_metadata?.name || user?.email?.split('@')[0] || 'Profile'}
-                </Link>
-                <button
-                  onClick={handleSignOut}
-                  className="text-sm bg-red-600 text-white px-3 py-1 rounded-lg font-medium hover:bg-red-700 transition-colors"
-                >
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <Link 
-                to="/login" 
-                className="text-sm bg-white text-rapid-primary px-3 py-1 rounded-lg font-medium hover:bg-green-50 transition-colors"
-              >
-                Login
-              </Link>
-            )}
-            
-            <Link to="/admin-dashboard" className="text-sm bg-gray-800 text-white px-3 py-1 rounded-lg font-medium hover:bg-gray-700 transition-colors">
-              Admin
-            </Link>
-          </div>
+                  </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -85,7 +54,7 @@ const Header = () => {
           <Link to="/manufacturing" className="text-sm hover:text-green-100 transition-colors">Mattresses</Link>
           <Link to="/contact" className="text-sm hover:text-green-100 transition-colors">Contact</Link>
           {!isAuthenticated && (
-            <Link to="/login" className="text-sm hover:text-green-100 transition-colors">Login</Link>
+           
           )}
         </nav>
       </div>
