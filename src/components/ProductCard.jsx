@@ -28,10 +28,11 @@ const ProductCard = ({ product }) => {
             alt={product.name}
             className="w-full h-full object-cover"
             loading="lazy"
+            onError={e => { e.target.onerror = null; e.target.src = '/images/box-icon.svg'; e.target.className = 'w-24 h-24 m-auto opacity-40'; }}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-gray-400">
-            <img src="/images/box-icon.svg" alt="Product" className="w-24 h-24" />
+            <img src="/images/box-icon.svg" alt="Product" className="w-24 h-24 opacity-40" />
           </div>
         )}
         

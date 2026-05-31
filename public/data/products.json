@@ -1,0 +1,220 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Single Foam Mattress",
+      "price": 350,
+      "category": "Mattresses",
+      "description": "High-quality 3.5-inch foam mattress for a single bed. Comfortable and durable, made from premium foam right here in Mansa, Zambia. Ideal for children, students, and guest rooms.",
+      "stock": 30,
+      "image": "/images/products/single-foam-mattress.png",
+      "featured": true
+    },
+    {
+      "id": "2",
+      "name": "Three-Quarter Foam Mattress",
+      "price": 520,
+      "category": "Mattresses",
+      "description": "Three-quarter foam mattress, the perfect in-between size. Excellent comfort with durable foam construction. Locally manufactured to the highest standard.",
+      "stock": 20,
+      "image": "/images/products/three-quarter-mattress.png",
+      "featured": false
+    },
+    {
+      "id": "3",
+      "name": "Double Foam Mattress",
+      "price": 680,
+      "category": "Mattresses",
+      "description": "Full double-size foam mattress with a comfortable 4-inch foam core. Great value for couples and master bedrooms. Manufactured locally in Mansa.",
+      "stock": 18,
+      "image": "/images/products/three-quarter-mattress.png",
+      "featured": false
+    },
+    {
+      "id": "4",
+      "name": "Single Spring Mattress",
+      "price": 750,
+      "category": "Mattresses",
+      "description": "Single size Bonnell spring mattress with quilted fabric top. Provides excellent back support and airflow. Long-lasting durability.",
+      "stock": 12,
+      "image": "/images/products/single-foam-mattress.png",
+      "featured": false
+    },
+    {
+      "id": "5",
+      "name": "Double Spring Mattress",
+      "price": 1200,
+      "category": "Mattresses",
+      "description": "Premium double spring mattress with orthopedic support. Features individually wrapped springs for superior comfort and motion isolation. A best-seller.",
+      "stock": 15,
+      "image": "/images/products/double-spring-mattress.png",
+      "featured": true
+    },
+    {
+      "id": "6",
+      "name": "Queen Spring Mattress",
+      "price": 1550,
+      "category": "Mattresses",
+      "description": "Queen size spring mattress with pillow-top finish. Multi-zone support system provides targeted pressure relief. Our most popular upgrade.",
+      "stock": 10,
+      "image": "/images/products/queen-spring-mattress.png",
+      "featured": true
+    },
+    {
+      "id": "7",
+      "name": "King Size Spring Mattress",
+      "price": 2200,
+      "category": "Mattresses",
+      "description": "Luxury king size spring mattress with premium comfort layers. Ultimate sleeping space for couples. Features dual-zone support for optimal rest.",
+      "stock": 6,
+      "image": "/images/products/king-size-mattress.png",
+      "featured": true
+    },
+    {
+      "id": "8",
+      "name": "Orthopedic Double Mattress",
+      "price": 1400,
+      "category": "Mattresses",
+      "description": "Medical-grade orthopedic double mattress with firm support core. Recommended for back pain relief and proper spinal alignment.",
+      "stock": 8,
+      "image": "/images/products/orthopedic-double-mattress.png",
+      "featured": false
+    },
+    {
+      "id": "9",
+      "name": "Baby Cot Mattress",
+      "price": 180,
+      "category": "Mattresses",
+      "description": "Compact hypoallergenic foam mattress for baby cots. Firm, flat, and breathable surface keeps babies safe and comfortable.",
+      "stock": 25,
+      "image": "/images/products/single-foam-mattress.png",
+      "featured": false
+    },
+    {
+      "id": "10",
+      "name": "Divan Base - Single",
+      "price": 450,
+      "category": "Furniture",
+      "description": "Single size divan bed base with upholstered finish. Sturdy wooden frame with fabric covering. Sits low and pairs with any mattress.",
+      "stock": 12,
+      "image": "/images/products/divan-base-single.png",
+      "featured": false
+    },
+    {
+      "id": "11",
+      "name": "Divan Base - Queen",
+      "price": 850,
+      "category": "Furniture",
+      "description": "Queen size divan base with built-in storage drawers. Upholstered grey fabric. Maximizes bedroom storage while providing a stable bed foundation.",
+      "stock": 8,
+      "image": "/images/products/divan-base-queen.png",
+      "featured": false
+    },
+    {
+      "id": "12",
+      "name": "3-Seater Sofa",
+      "price": 1800,
+      "category": "Furniture",
+      "description": "Comfortable 3-seater fabric sofa. Sturdy hardwood frame with dense foam cushioning. Available in brown and grey. Perfect for living rooms.",
+      "stock": 5,
+      "image": "/images/products/sofa-3-seater.png",
+      "featured": true
+    },
+    {
+      "id": "13",
+      "name": "Office Chair",
+      "price": 350,
+      "category": "Furniture",
+      "description": "Ergonomic padded office chair with adjustable height and armrests. Black fabric seat. Suitable for home offices, schools, and businesses.",
+      "stock": 20,
+      "image": "/images/products/divan-base-single.png",
+      "featured": false
+    },
+    {
+      "id": "14",
+      "name": "Maize Meal 25kg",
+      "price": 185,
+      "category": "Groceries",
+      "description": "25kg bag of fine white breakfast maize meal. Staple food for Zambian households. Milled to consistent texture for smooth nshima.",
+      "stock": 80,
+      "image": "/images/products/maize-meal-25kg.png",
+      "featured": false
+    },
+    {
+      "id": "15",
+      "name": "Cooking Oil 5L",
+      "price": 115,
+      "category": "Groceries",
+      "description": "Premium 5-litre refined cooking oil. Cholesterol free, suitable for frying, baking, and all cooking methods. Great family-size value.",
+      "stock": 60,
+      "image": "/images/products/household-essentials-pack.png",
+      "featured": false
+    },
+    {
+      "id": "16",
+      "name": "Household Essentials Pack",
+      "price": 250,
+      "category": "Groceries",
+      "description": "Complete household bundle: bar soap, washing powder, cooking oil, sugar, and more. Curated for Zambian family needs. Great savings vs. buying separately.",
+      "stock": 40,
+      "image": "/images/products/household-essentials-pack.png",
+      "featured": true
+    },
+    {
+      "id": "17",
+      "name": "Washing Powder 1kg",
+      "price": 35,
+      "category": "Groceries",
+      "description": "Heavy-duty washing powder, 1kg pack. Effective on tough stains in both hand and machine washing. Fresh clean scent.",
+      "stock": 100,
+      "image": "/images/products/household-essentials-pack.png",
+      "featured": false
+    },
+    {
+      "id": "18",
+      "name": "Foam Sheet (Single Size)",
+      "price": 120,
+      "category": "Foam Products",
+      "description": "Single-size raw foam sheet, 2-inch thickness. Cut-to-order available. Ideal for mattress topper, upholstery repair, and packaging.",
+      "stock": 50,
+      "image": "/images/products/custom-foam-sheet.png",
+      "featured": false
+    },
+    {
+      "id": "19",
+      "name": "Foam Roll 2m",
+      "price": 280,
+      "category": "Foam Products",
+      "description": "2-metre foam roll, 1m wide. Flexible and lightweight. Perfect for upholstery projects, seat padding, sleeping mats, and cushion making.",
+      "stock": 35,
+      "image": "/images/products/custom-foam-sheet.png",
+      "featured": false
+    },
+    {
+      "id": "20",
+      "name": "Sofa Cushion Foam (Pair)",
+      "price": 160,
+      "category": "Foam Products",
+      "description": "Pair of replacement sofa cushion foam inserts. High-density foam, cut to standard 3-seater cushion size. Restore your sofa's comfort.",
+      "stock": 30,
+      "image": "/images/products/custom-foam-sheet.png",
+      "featured": false
+    },
+    {
+      "id": "21",
+      "name": "Foam Offcuts Bag",
+      "price": 65,
+      "category": "Foam Products",
+      "description": "Bag of assorted foam offcuts and remnants. Useful for small upholstery jobs, crafts, and packaging. Great value for hobbyists.",
+      "stock": 20,
+      "image": "/images/products/custom-foam-sheet.png",
+      "featured": false
+    }
+  ],
+  "categories": [
+    { "id": "mattresses", "name": "Mattresses", "icon": "/images/category-mattresses.png" },
+    { "id": "furniture", "name": "Furniture", "icon": "/images/category-furniture.png" },
+    { "id": "groceries", "name": "Groceries", "icon": "/images/category-groceries.png" },
+    { "id": "foam-products", "name": "Foam Products", "icon": "/images/category-foam.png" }
+  ]
+}

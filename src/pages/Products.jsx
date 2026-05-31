@@ -1,77 +1,35 @@
 import React, { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
-import { db } from '../services/supabase'
+import { getProducts } from '../services/productStore'
 
-const defaultCategories = ['All', 'Mattresses', 'Furniture', 'Groceries', 'Foam Products']
+const allCategories = ['All', 'Mattresses', 'Furniture', 'Groceries', 'Foam Products']
 
 const Products = () => {
+  const [searchParams] = useSearchParams()
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
   const [products, setProducts] = useState([])
-  const [categories, setCategories] = useState(defaultCategories)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
 
   useEffect(() => {
-    loadCategories()
-    loadProducts()
+    const cat = searchParams.get('category')
+    if (cat && allCategories.includes(cat)) setSelectedCategory(cat)
+  }, [searchParams])
+
+  useEffect(() => {
+    setLoading(true)
+    getProducts().then(data => {
+      setProducts(data)
+      setLoading(false)
+    })
   }, [])
 
-  useEffect(() => {
-    if (selectedCategory === 'All') {
-      loadProducts()
-    } else {
-      loadProductsByCategory(selectedCategory)
-    }
-  }, [selectedCategory])
-
-  const loadCategories = async () => {
-    try {
-      const categoryData = await db.categories.getAll()
-      if (categoryData?.length) {
-        setCategories(['All', ...categoryData.map((category) => category.name)])
-      }
-    } catch (err) {
-      console.error('Failed to load categories:', err)
-    }
-  }
-
-  const loadProducts = async () => {
-    setLoading(true)
-    setError(null)
-
-    try {
-      const data = await db.products.getAll()
-      setProducts(data)
-    } catch (err) {
-      console.error('Failed to load products:', err)
-      setError('Unable to load products right now. Please try again later.')
-      setProducts([])
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const loadProductsByCategory = async (category) => {
-    setLoading(true)
-    setError(null)
-
-    try {
-      const data = await db.products.getByCategory(category)
-      setProducts(data)
-    } catch (err) {
-      console.error(`Failed to load products for category ${category}:`, err)
-      setError('Unable to load products right now. Please try again later.')
-      setProducts([])
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const filteredProducts = products.filter((product) => {
-    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (product.description ?? '').toLowerCase().includes(searchQuery.toLowerCase())
-    return matchesSearch
+  const filtered = products.filter(p => {
+    const matchCat = selectedCategory === 'All' || p.category === selectedCategory
+    const matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (p.description ?? '').toLowerCase().includes(searchQuery.toLowerCase())
+    return matchCat && matchSearch
   })
 
   if (loading) {
@@ -90,56 +48,44 @@ const Products = () => {
   return (
     <div className="min-h-screen py-8">
       <div className="container mx-auto px-4">
-        {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-2">Our Products</h1>
           <p className="text-gray-600">Browse our complete catalog of quality products</p>
         </div>
 
-        {/* Filters */}
         <div className="mb-6 space-y-4">
-          {/* Search */}
           <input
             type="text"
             placeholder="Search products..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={e => setSearchQuery(e.target.value)}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rapid-primary"
+            aria-label="Search products"
           />
-
-          {/* Category Filter */}
           <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
+            {allCategories.map(cat => (
               <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                  selectedCategory === category
+                  selectedCategory === cat
                     ? 'bg-rapid-primary text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-100'
                 }`}
               >
-                {category}
+                {cat}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Results Count */}
         <p className="text-sm text-gray-600 mb-4">
-          Showing {filteredProducts.length} of {products.length} products
+          Showing {filtered.length} of {products.length} products
         </p>
 
-        {error && (
-          <div className="mb-6 rounded-lg bg-red-50 border border-red-200 p-4 text-red-700">
-            {error}
-          </div>
-        )}
-
-        {/* Product Grid */}
-        {filteredProducts.length > 0 ? (
+        {filtered.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredProducts.map((product) => (
+            {filtered.map(product => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
